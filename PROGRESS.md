@@ -6,7 +6,9 @@
 - [x] Setup NestJS + Prisma Backend Foundation <!-- id: 2 -->
 - [ ] Implement Basic Routing (Expo Router) <!-- id: 3 -->
 - [x] Authentication & RBAC <!-- id: 4 -->
-- [ ] Inventory CRUD <!-- id: 5 -->
+- [x] Inventory CRUD <!-- id: 5 -->
+- [x] Sales Processing & Transactions <!-- id: 15 -->
+- [x] Financial Analytics Engine <!-- id: 16 -->
 
 ## Phase 2: Location & Staff Mode
 - [ ] Indoor Mapping UI <!-- id: 6 -->
