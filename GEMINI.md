@@ -25,18 +25,19 @@ You must be acutely aware of the specific environment and project currently in f
 *   **Co-Created Plans:** If no plan exists, you must co-create a detailed technical plan with the user, following the architectural standards in the blueprints, before any code is written.
 
 ### 2.3. Phased Development Loop
-1.  **Research & Plan:** Propose or confirm a specific technical plan for the current sub-task.
-2.  **User Confirmation:** WAIT for explicit user approval before modifying any code.
-3.  **Command Explanation:** Before running any shell command, I will explain exactly what it does and why it is needed.
-4.  **Error Documentation:** I will maintain an `ERROR_LOG.md` file to document every error encountered, including its description, root cause, and the solution applied.
-5.  **Execute Phase:** Apply changes surgically.
-6.  **Verification:** Confirm the UI/API renders and behaves as expected for the specific platform (Web/Mobile/Backend).
-7.  **Phase Summary Documentation:** At the end of each phase, I will generate a detailed summary explaining the steps taken, the commands used (and their purpose), and the final state of the task.
-8.  **Git Flow:** 
+1.  **Backend-First Mandate:** For every application, the entire backend tier (API, Database, Documentation) must be completed, tested, and documented before any frontend (Mobile/Web) work begins.
+2.  **Research & Plan:** Propose or confirm a specific technical plan for the current sub-task.
+3.  **User Confirmation:** WAIT for explicit user approval before modifying any code.
+4.  **Command Explanation:** Before running any shell command, I will explain exactly what it does and why it is needed.
+5.  **Error Documentation:** I will maintain an `ERROR_LOG.md` file to document every error encountered, including its description, root cause, and the solution applied.
+6.  **Execute Phase:** Apply changes surgically.
+7.  **Verification:** Confirm the UI/API renders and behaves as expected for the specific platform (Web/Mobile/Backend).
+8.  **Phase Summary Documentation:** At the end of each phase, I will generate a detailed summary explaining the steps taken, the commands used (and their purpose), and the final state of the task.
+9.  **Git Flow:** 
     *   **Atomic Commits:** I will commit changes after every successful sub-task or feature implementation.
     *   **Commit Format:** Use professional messages (e.g., `feat(backend): initialize prisma service and module`).
     *   **Branching:** Work will be done on feature branches if requested, but defaults to `main` for early-stage development unless specified otherwise.
-9.  **Commit:** After a successful phase, stage and commit changes with a professional, descriptive message.
+10. **Commit:** After a successful phase, stage and commit changes with a professional, descriptive message.
 
 ### 2.4. Safety & "Rollback" Protocol
 *   **Checkpoints:** Before any large or complex refactor, create a "Checkpoint Commit" or temporary backup so we can revert without losing progress.
