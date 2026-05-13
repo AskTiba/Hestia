@@ -9,6 +9,8 @@
 - [x] Inventory CRUD <!-- id: 5 -->
 - [x] Sales Processing & Transactions <!-- id: 15 -->
 - [x] Financial Analytics Engine <!-- id: 16 -->
+- [x] API Documentation (Swagger) <!-- id: 17 -->
+- [x] Backend Verification & Stability Fixes <!-- id: 18 -->
 
 ## Phase 2: Location & Staff Mode
 - [ ] Indoor Mapping UI <!-- id: 6 -->
