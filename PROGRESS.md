@@ -5,7 +5,7 @@
 - [ ] Configure NativeWind for styling <!-- id: 1 -->
 - [x] Setup NestJS + Prisma Backend Foundation <!-- id: 2 -->
 - [ ] Implement Basic Routing (Expo Router) <!-- id: 3 -->
-- [ ] Authentication & RBAC <!-- id: 4 -->
+- [x] Authentication & RBAC <!-- id: 4 -->
 - [ ] Inventory CRUD <!-- id: 5 -->
 
 ## Phase 2: Location & Staff Mode
