@@ -3,8 +3,8 @@ services:
     name: hestia-backend
     env: node
     rootDir: backend
-    buildCommand: npm install -g bun && bun install && bun run build
-    startCommand: bun run start:prod
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npm run start:prod
     envVars:
       - key: DATABASE_URL
         sync: false
