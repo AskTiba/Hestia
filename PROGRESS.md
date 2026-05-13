@@ -3,7 +3,7 @@
 ## Phase 1: Foundation (MVP)
 - [ ] Initialize Expo Project (React Native + TypeScript) <!-- id: 0 -->
 - [ ] Configure NativeWind for styling <!-- id: 1 -->
-- [ ] Setup Supabase / Custom Backend (TBD) <!-- id: 2 -->
+- [x] Setup NestJS + Prisma Backend Foundation <!-- id: 2 -->
 - [ ] Implement Basic Routing (Expo Router) <!-- id: 3 -->
 - [ ] Authentication & RBAC <!-- id: 4 -->
 - [ ] Inventory CRUD <!-- id: 5 -->
