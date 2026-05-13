@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: shopmaster-backend
+    env: bun
+    rootDir: backend
+    buildCommand: bun install && bun run build
+    startCommand: bun run start:prod
+    envVars:
+      - key: DATABASE_URL
+        sync: false
