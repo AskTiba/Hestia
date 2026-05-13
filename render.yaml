@@ -1,9 +1,9 @@
 services:
   - type: web
     name: hestia-backend
-    env: bun
+    env: node
     rootDir: backend
-    buildCommand: bun install && bun run build
+    buildCommand: npm install -g bun && bun install && bun run build
     startCommand: bun run start:prod
     envVars:
       - key: DATABASE_URL
