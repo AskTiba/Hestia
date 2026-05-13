@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: shopmaster-backend
+    name: hestia-backend
     env: bun
     rootDir: backend
     buildCommand: bun install && bun run build
