@@ -27,3 +27,8 @@ Thumbs.db
 # Project specific
 backend/dist/
 backend/node_modules/
+
+# Project Planning Files
+/*.md
+!README.md
+docs/
