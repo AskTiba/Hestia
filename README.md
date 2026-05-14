@@ -85,6 +85,7 @@ bun run start:prod
 When the server is running, interactive Swagger documentation is automatically generated.
 
 - **Local Development:** `http://localhost:3001/api`
-- **Production URL:** *(To be deployed via Render)*
+- **Production URL:** [https://hestia-lpxn.onrender.com](https://hestia-lpxn.onrender.com)
+- **Production API Docs:** [https://hestia-lpxn.onrender.com/api](https://hestia-lpxn.onrender.com/api)
 
 Use the Swagger UI to inspect endpoint schemas, test queries, and verify JSON structures before integrating them into the frontend repositories.

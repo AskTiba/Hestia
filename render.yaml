@@ -1,10 +1,14 @@
 services:
   - type: web
     name: hestia-backend
-    env: node
-    rootDir: backend
-    buildCommand: npm install && npx prisma generate && npm run build
-    startCommand: npm run start:prod
+    runtime: node
+    plan: free
+    buildCommand: cd backend && bun install && bun run build
+    startCommand: cd backend && bun run start:prod
     envVars:
       - key: DATABASE_URL
-        sync: false
+        sync: false # Set this in the Render Dashboard
+      - key: JWT_SECRET
+        sync: false # Set this in the Render Dashboard
+      - key: NODE_ENV
+        value: production
