@@ -9,6 +9,7 @@ import { SalesModule } from './sales/sales.module';
 import { DiscoveryModule } from './discovery/discovery.module';
 import { CrowdModule } from './crowd/crowd.module';
 import { SocialModule } from './social/social.module';
+import { MarketplaceModule } from './marketplace/marketplace.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { SocialModule } from './social/social.module';
     DiscoveryModule,
     CrowdModule,
     SocialModule,
+    MarketplaceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

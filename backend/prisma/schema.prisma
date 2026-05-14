@@ -1,9 +1,21 @@
+// Hestia Unified Backend: Prisma Schema
+// Powers ShopMaster, VibeCheck, and EliteAid
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+// --- Shared Core (Auth & Identity) ---
+
+enum UserRole {
+  OWNER     // ShopMaster Owner
+  STAFF     // ShopMaster Staff
+  HOMEOWNER // EliteAid Client
+  HELPER    // EliteAid Service Provider
 }
 
 model User {
@@ -22,88 +34,15 @@ model User {
   // VibeCheck Relations
   reviews      Review[]
   crowdReports CrowdReport[]
+
+  // EliteAid Relations
+  ownedTasks    Task[]        @relation("HomeownerTasks")
+  assignedTasks Task[]        @relation("HelperTasks")
+  safetyAlerts  SafetyAlert[]
+  helperStats   HelperStats?
 }
 
-model Place {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  latitude    Decimal  @db.Decimal(10, 8)
-  longitude   Decimal  @db.Decimal(11, 8)
-  address     String?
-  contactInfo String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  // Relations
-  activities   PlaceActivity[]
-  events       Event[]
-  reviews      Review[]
-  crowdReports CrowdReport[]
-}
-
-model Activity {
-  id   String @id @default(uuid())
-  name String @unique // e.g., "Swimming", "Chess"
-
-  // Relations
-  places PlaceActivity[]
-}
-
-model PlaceActivity {
-  id         String   @id @default(uuid())
-  placeId    String
-  activityId String
-  place      Place    @relation(fields: [placeId], references: [id])
-  activity   Activity @relation(fields: [activityId], references: [id])
-
-  @@unique([placeId, activityId])
-}
-
-model Event {
-  id          String    @id @default(uuid())
-  placeId     String
-  title       String
-  description String?
-  type        String // e.g., "Sports", "Charity"
-  startTime   DateTime
-  endTime     DateTime?
-  ticketPrice Decimal?  @db.Decimal(12, 2)
-  createdAt   DateTime  @default(now())
-
-  place Place @relation(fields: [placeId], references: [id])
-}
-
-model Review {
-  id        String   @id @default(uuid())
-  placeId   String
-  userId    String
-  rating    Int      @default(5)
-  comment   String?
-  vibeTags  Json? // Array of tags like ["Quiet", "Friendly"]
-  createdAt DateTime @default(now())
-
-  place Place @relation(fields: [placeId], references: [id])
-  user  User  @relation(fields: [userId], references: [id])
-}
-
-enum VibeStatus {
-  CHILLED
-  ACTIVE
-  PACKED
-}
-
-model CrowdReport {
-  id        String     @id @default(uuid())
-  placeId   String
-  userId    String
-  status    VibeStatus
-  createdAt DateTime   @default(now())
-
-  place Place @relation(fields: [placeId], references: [id])
-  user  User  @relation(fields: [userId], references: [id])
-}
-
+// --- Project 1: ShopMaster (Inventory & Finance) ---
 
 model Product {
   id            String            @id @default(uuid())
@@ -177,7 +116,128 @@ model SaleItem {
   sale        Sale    @relation(fields: [saleId], references: [id])
 }
 
-enum UserRole {
-  OWNER
-  STAFF
+// --- Project 2: VibeCheck (Discovery & Events) ---
+
+model Place {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  latitude    Decimal  @db.Decimal(10, 8)
+  longitude   Decimal  @db.Decimal(11, 8)
+  address     String?
+  contactInfo String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  activities   PlaceActivity[]
+  events       Event[]
+  reviews      Review[]
+  crowdReports CrowdReport[]
+}
+
+model Activity {
+  id   String @id @default(uuid())
+  name String @unique
+  places PlaceActivity[]
+}
+
+model PlaceActivity {
+  id         String   @id @default(uuid())
+  placeId    String
+  activityId String
+  place      Place    @relation(fields: [placeId], references: [id])
+  activity   Activity @relation(fields: [activityId], references: [id])
+
+  @@unique([placeId, activityId])
+}
+
+model Event {
+  id          String    @id @default(uuid())
+  placeId     String
+  title       String
+  description String?
+  type        String
+  startTime   DateTime
+  endTime     DateTime?
+  ticketPrice Decimal?  @db.Decimal(12, 2)
+  createdAt   DateTime  @default(now())
+
+  place Place @relation(fields: [placeId], references: [id])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  placeId   String
+  userId    String
+  rating    Int      @default(5)
+  comment   String?
+  vibeTags  Json?
+  createdAt DateTime @default(now())
+
+  place Place @relation(fields: [placeId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+}
+
+enum VibeStatus {
+  CHILLED
+  ACTIVE
+  PACKED
+}
+
+model CrowdReport {
+  id        String     @id @default(uuid())
+  placeId   String
+  userId    String
+  status    VibeStatus
+  createdAt DateTime   @default(now())
+
+  place Place @relation(fields: [placeId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+}
+
+// --- Project 3: EliteAid (Household Marketplace) ---
+
+model Task {
+  id          String     @id @default(uuid())
+  description String
+  amount      Decimal    @db.Decimal(12, 2)
+  status      TaskStatus @default(PENDING)
+  ownerId     String
+  helperId    String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  owner        User          @relation("HomeownerTasks", fields: [ownerId], references: [id])
+  helper       User?         @relation("HelperTasks", fields: [helperId], references: [id])
+  safetyAlerts SafetyAlert[]
+}
+
+enum TaskStatus {
+  PENDING
+  ESCROWED
+  ACTIVE
+  COMPLETED
+  DISPUTED
+}
+
+model SafetyAlert {
+  id        String   @id @default(uuid())
+  taskId    String?
+  userId    String
+  severity  String   @default("HIGH")
+  message   String?
+  createdAt DateTime @default(now())
+
+  task Task? @relation(fields: [taskId], references: [id])
+  user User  @relation(fields: [userId], references: [id])
+}
+
+model HelperStats {
+  id        String @id @default(uuid())
+  userId    String @unique
+  totalJobs Int    @default(0)
+  avgRating Float  @default(0.0)
+  payTier   Int    @default(1)
+
+  user User @relation(fields: [userId], references: [id])
 }
