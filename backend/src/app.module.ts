@@ -6,9 +6,21 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { SalesModule } from './sales/sales.module';
+import { DiscoveryModule } from './discovery/discovery.module';
+import { CrowdModule } from './crowd/crowd.module';
+import { SocialModule } from './social/social.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule, InventoryModule, SalesModule],
+  imports: [
+    PrismaModule,
+    AuthModule,
+    UsersModule,
+    InventoryModule,
+    SalesModule,
+    DiscoveryModule,
+    CrowdModule,
+    SocialModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
